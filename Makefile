@@ -18,8 +18,6 @@ unit-test: venv
 	@echo "${OK}"
 .PHONY: unit-test
 
-# executes venv and get_chromium if they haven't already run.
-# Starts the virtual environment and executes the python file in that environment.
 run: venv unit-test
 	@echo "Executing Program"
 	export PYTHONPATH=${PYTHONPATH}:${ROOT_DIR}; \
