@@ -1,23 +1,40 @@
+from logzero import logger
+
+
 MENU = {"soda", "fries", "burger", "shake", "cookie", "chicken strips"}
 
 
-def get_order():
+def get_order(test_order=None):
     current_order = []
+    # test related: ignore
+    order_iter = _get_order_iter(test_order)
     while True:
-        print("What can I get for you?")
-        order = input()
+        if test_order:
+            try:
+                order = next(order_iter)
+            except StopIteration:
+                return current_order
+        else:
+            order = input("What can I get for you?")
         if order in MENU:
             current_order.append(order)
         else:
-            print("I'm sorry, we don't serve that.")
+            logger.info("I'm sorry, we don't serve that.")
             continue
-        if is_order_complete():
+        if test_order:
+            continue
+        elif is_order_complete():
             return current_order
 
 
+def _get_order_iter(test_order):
+    if test_order:
+        return iter(test_order)
+    return None
+
+
 def is_order_complete():
-    print("Anything else? yes/no")
-    choice = input()
+    choice = input("Anything else? yes/no")
     if choice == "no":
         return True
     elif choice == "yes":
@@ -27,15 +44,15 @@ def is_order_complete():
 
 
 def output_order(order_list):
-    print("Okay, so you want")
+    logger.info("Okay, so you want")
     for order in order_list:
-        print(order)
+        logger.info(order)
 
 
 def main():
     order = get_order()
     output_order(order)
-    print("Please drive through to the second window.")
+    logger.info("Please drive through to the second window.")
 
 
 if __name__ == "__main__":

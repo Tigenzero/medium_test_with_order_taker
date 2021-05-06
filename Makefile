@@ -1,4 +1,3 @@
-# CURRENTLY ONLY SUPPORTS OSX
 OK="OK ${CNone}"
 #Project root
 ROOT_DIR := $(shell pwd)
@@ -15,7 +14,7 @@ unit-test: venv
 	export PYTHONPATH=${PYTHONPATH}:${ROOT_DIR}; \
 	python3 -m pipenv check; \
 	python3 -m pipenv install; \
-	python3 -m pipenv run python3 ; TODO: FINISH THIS
+	python3 -m pipenv run python3 -m unittest;
 	@echo "${OK}"
 .PHONY: unit-test
 
@@ -26,5 +25,5 @@ run: venv unit-test
 	export PYTHONPATH=${PYTHONPATH}:${ROOT_DIR}; \
 	python3 -m pipenv check; \
 	python3 -m pipenv install; \
-	python3 -m pipenv run python3 "${ROOT_DIR}/game/main.py";
+	python3 -m pipenv run python3 "${ROOT_DIR}/order_up.py";
 	@echo "${OK}"
